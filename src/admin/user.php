@@ -29,6 +29,8 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     } else {
         echo header('Location:users.php');
     }
+} else {
+    echo header('Location:users.php');
 }
 ?>
 
