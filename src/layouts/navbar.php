@@ -23,6 +23,7 @@
             } elseif ($_SESSION['user']['role'] === 'teacher') {
             ?>
                 <a class="side-link" href="./index.php">Dashboard</a>
+                <a class="side-link" href="./subjects.php">Subjects</a>
                 <a class="side-link" href="./../auth/logout.php">Logout</a>
             <?php
             }
