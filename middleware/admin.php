@@ -12,4 +12,6 @@ if (isset($_SESSION['user']['username'])) {
     if (!$user || $user['role'] !== 'admin') {
         echo header('Location:../auth/login.php?msg=unauthorized');
     }
+} else {
+    echo header('Location:../auth/login.php?msg=unauthorized');
 }
