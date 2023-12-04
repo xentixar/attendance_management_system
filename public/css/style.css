@@ -19,6 +19,7 @@
     color: white;
     display: block;
     transition: 1s;
+    margin-bottom: 0.5rem;
 }
 
 .side-link:hover {

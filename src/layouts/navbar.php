@@ -14,8 +14,9 @@
             if ($_SESSION['user']['role'] === 'admin') {
         ?>
                 <a class="side-link" href="./index.php">Dashboard</a>
-                <a class="side-link" href="./users.php">All Users</a>
-                <a class="side-link" href="./semesters.php">All Semesters</a>
+                <a class="side-link" href="./users.php">Users</a>
+                <a class="side-link" href="./semesters.php">Semesters</a>
+                <a class="side-link" href="./subjects.php">Subjects</a>
                 <a class="side-link" href="./../auth/logout.php">Logout</a>
             <?php
             }
