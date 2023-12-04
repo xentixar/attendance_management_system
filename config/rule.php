@@ -229,9 +229,13 @@ class Rule extends Validation
     protected function unique($value, $field, $validation_key, $values)
     {
         $values = explode(',', $values);
-        if (count($values) === 2) {
+        if (count($values) >= 2) {
             $table = $values[0];
             $column = $values[1];
+            $except = null;
+            if (count($values) === 3) {
+                $except = $values[2] ?? null;
+            }
             $database = new Database();
             $conn = $database->connect();
 
@@ -247,7 +251,7 @@ class Rule extends Validation
                     }
                 }
                 if ($columnType !== "") {
-                    $select_query = "SELECT COUNT(*) FROM $table WHERE $column=?";
+                    $select_query = "SELECT COUNT(*) FROM $table WHERE $column=?" . ($except ? " AND id != $except" : '');
                     $stmt = $conn->prepare($select_query);
                     $stmt->bind_param($columnType == 'int' ? 'i' : 's', $value);
                     $stmt->execute();

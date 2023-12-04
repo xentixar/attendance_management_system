@@ -11,13 +11,15 @@
     <div class="offcanvas-body">
         <?php
         if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']['role'] === 'admin') {
         ?>
-
-            <a class="side-link" href="./index.php">Dashboard</a>
-            <a class="side-link" href="./../auth/logout.php">Logout</a>
-        <?php
+                <a class="side-link" href="./index.php">Dashboard</a>
+                <a class="side-link" href="./users.php">All Users</a>
+                <a class="side-link" href="./../auth/logout.php">Logout</a>
+            <?php
+            }
         } else {
-        ?>
+            ?>
             <a class="side-link" href="/<?php echo getenv('APP_URI') ? getenv('APP_URI') . "/" : ''  . "index.php" ?>">Home</a>
             <a class="side-link" href="/<?php echo getenv('APP_URI') ? getenv('APP_URI') . "/" : '' . "auth/login.php" ?>">Login</a>
             <a class="side-link" href="/<?php echo getenv('APP_URI') ? getenv('APP_URI') . "/" : '' . "auth/register.php" ?>">Register</a>
