@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /ams/
+
+RewriteCond %{THE_REQUEST} /src/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|bmp|ico|svg|mp4|webm|ogg|mp3)$
+
+RewriteRule ^((?!src/).*)$ src/$1 [L,NC]
