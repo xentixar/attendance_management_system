@@ -67,8 +67,26 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                     $update_query = "UPDATE students SET subject_id=?,subject_id=? WHERE id=$id";
                     $stmt = $conn->prepare($update_query);
                 } else {
-                    $insert_query = "INSERT INTO students(student_id,subject_id) VALUES(?,?)";
-                    $stmt = $conn->prepare($insert_query);
+                    $select_query = "SELECT * FROM students WHERE subject_id=? AND student_id=?";
+                    $stmt = $conn->prepare($select_query);
+                    $stmt->bind_param("ii", $subject, $student);
+                    $result = $stmt->execute();
+                    if ($result) {
+                        $result = $stmt->get_result();
+                        $student = $result->fetch_assoc();
+                        print_r($student);
+                        if ($student) {
+                            $_SESSION['error']['student'] = "Selected student already exists in the subject.";
+                            $stmt->close();
+                            $conn->close();
+                            echo header('Location:./student.php?action=create');
+                        } else {
+                            $insert_query = "INSERT INTO students(student_id,subject_id) VALUES(?,?)";
+                            $stmt = $conn->prepare($insert_query);
+                        }
+                    } else {
+                        echo "Error:" . $stmt->error;
+                    }
                 }
                 if ($stmt) {
                     $stmt->bind_param("ii", $student, $subject);

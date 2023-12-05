@@ -45,7 +45,7 @@ if (isset($_GET['subject'])) {
                     <?php
                     $subject_id = $subject['id'];
                     $date = date('Y-m-d');
-                    $select_result = $conn->query("SELECT attendances.*, users.name AS student_name FROM attendances JOIN users ON attendances.student_id = users.id WHERE date!='$date' ORDER BY date DESC");
+                    $select_result = $conn->query("SELECT attendances.*, users.name AS student_name FROM attendances JOIN students ON attendances.student_id = students.id JOIN users ON students.student_id = users.id WHERE date!='$date' AND students.subject_id =$subject_id ORDER BY date DESC");
                     $attendances = $select_result->fetch_all(MYSQLI_ASSOC);
                     $conn->close();
                     foreach ($attendances as $attendance) :
@@ -55,7 +55,7 @@ if (isset($_GET['subject'])) {
                             <td><?php echo $attendance['student_name'] ?></td>
                             <td><?php echo date('Y-m-d') ?></td>
                             <td>
-                                <input class="form-check-input attendance-checkbox" type="checkbox" <?php echo $attendance ? ($attendance['status'] ? 'checked' : '') : '' ?> value="1" name="attendance[<?= $student['id'] ?>]">
+                                <input class="form-check-input attendance-checkbox" type="checkbox" <?php echo $attendance ? ($attendance['status'] ? 'checked' : '') : '' ?> value="1">
                             </td>
                         </tr>
                     <?php
